@@ -39,17 +39,41 @@ function Airplane(name) {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- function Person(name, age) {
-    this.name = name;
-    this.age = age;
-    this.stomach = [];
-    this.toString = function() {
-      return '${this.name}, ${this.age}'
-    }
-  }
-//  work through .eat('someFood') and .poop() on your own, remember we are still just dealing with arrays
- 
+// create our constructor function
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
+}
 
+Person.prototype.eat = function(edible) {
+  if(this.stomach.length < 10) {
+    this.stomach.push(edible);
+  }
+}
+Person.prototype.poop = function() {
+  this.stomach = [];
+}
+Person.prototype.toString = function() {
+  return '${this.name}, ${this.age}';
+}
+const lambdaStudentOne = new Person('Annie', 33);
+const lambdaStudentTwo = new Person('Emily', 19);
+const lambdaStudentThree = new Person('Alex', 20);
+
+console.log(lambdaStudentOne.toString());
+console.log(lambdaStudentTwo.toString());
+console.log(lambdaStudentThree.toString());
+
+lambdaStudentThree.eat('fish');
+lambdaStudentThree.eat('potato');
+lambdaStudentThree.eat('lemon');
+
+console.log(lambdaStudentThree.stomach);
+
+lambdaStudentThree.poop();
+
+console.log(lambdaStudentThree.stomach);
   
   
   

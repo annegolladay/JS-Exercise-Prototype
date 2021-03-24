@@ -40,24 +40,25 @@ function Airplane(name) {
   */
   
  function Person(name, age) {
-    this.name;
-    this.age;
+    this.name = name;
+    this.age = age;
     this.stomach = [];
-    this.eat = function(someFood) {
-      //add functionality of the 'eat' method should have no effect if there are 10 items in stomach
-      this.stomach.push(someFood);
     }
-    this.poop = function() {
-      //add logic to empty stomach array
-      //hint..you should be using this.stomach
-    };
-    this.toString = () => { return `${this.name}, ${this.age}`}
-  }
- 
- 
+    Person.prototype.eat = function(edible) {
+      if(this.stomach.length < 10) {
+        this.stomach.push(edible);
+      }
+    }
+    Person.prototype.poop = function() {
+      this.stomach = [];
+    }
+    Person.prototype.toString = function() {
+      return `${this.name}, ${this.age}`;
+    }
 
-  
-  
+    const annie = new Person('Annie', 33);
+
+    console.log(annie.toString());
   
   
   /*
@@ -74,10 +75,32 @@ function Airplane(name) {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
+ function Car(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
   }
-  
+  Car.prototype.fill = function(gallons) {
+    this.tank = this.tank + gallons;
+  }
+  Car.prototype.drive = function(distance) {
+    const driveableMiles = this.tank * this.milesPerGallon;
+    if(distance <= driveableMiles) {
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - (distance / this.milesPerGallon);
+    }else{
+      this.odometer = this.odometer + driveableMiles;
+      this.tank = 0
+      return `I ran out of fuel at ${this.odometer} miles`;
+    }
+  }
+
+  const eclipse = new Car('eclipse', 20);
+
+  eclipse.fill(14);
+  console.log(eclipse.tank);
+  console.log(eclipse.drive(400));
   
   /*
     TASK 3
@@ -86,9 +109,20 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
+ function Baby(name, age, favoriteToy) {
+   Person.call(this, name, age); //I am telling the baby who its parent is
+   //special baby attribute get assigned here
+   this.favoriteToy = favoriteToy;
   }
+  Baby.prototype = Object.create(Person.prototype); //this tells the baby to inherit the person's methods
+  //any special methods that belong to the baby we write down here
+  Baby.prototype.play = function() {
+    return `playing with ${this.favoriteToy}`;
+  }
+  const murray = new Baby('Murray', 39, 'basketball'); //new binding
+
+  console.log(murray.toString()); //implicit binding
+  console.log(murray.play());
  
   
   /* 

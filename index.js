@@ -128,10 +128,10 @@ function Airplane(name) {
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. Principle 1: Window/Global Object Binding. This happens when we are in the global scope, the value of 'this is in the window/console object.
+    2. Principle 2: Implicit Binding happens whatever is before the dot calls a function, the object before the dot is this.
+    3. Principle 3: New Binding: whenever we use a constructor function, this refers to the specific instance of the object that is created and returned by constructor function.
+    4. Principle 4: Explicit Binding is whenever we use the call or apply method, this is explicitly defined.
   */
   
   
